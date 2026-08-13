@@ -33,7 +33,7 @@ Some important commands to know from this module are
 -) find - used to find files, The `find` command takes optional arguments describing the search criteria and the search location. If you don't specify a search criteria, `find` matches every file. If you don't specify a search location, `find` uses the current working directory (`.`). We can specify the criteria by also filtering by name, i.e. using the -name flag 
 
 There are many different types of files in Linux, using ls -l or ls -ld shows us the types of these files 
-1) - is a regular files
+1) "-" is a regular file
 2) d is a directory files
 3) l is a symbolic link (a file that transparently points to another file or directory)
 4) p is a named pipe (also known as a FIFO. You will get very familiar with these this module!)
