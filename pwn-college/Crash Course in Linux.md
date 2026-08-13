@@ -819,3 +819,139 @@ Of course, this can somewhat be done by normal files: you've learned how to `ec
 4. **Complex data flows:** FIFOs are useful for facilitating complex data flows, merging and splitting data in flexible ways, and so on. For example, FIFOs support multiple readers and writers.
 # Shell Variables
 
+The Linux command line interface is actually a sophisticated programming language with which you can write actual programs! Because the command line interface is colloquially referred to as a "shell", programs written in this language are referred to as "shell scripts". When you're using the command line, you are basically writing a shell script line by line!
+
+Like most programming languages, the shell supports variables. You can also print out variables with `echo`, by prepending the variable name with a `$`. For example the variable, `PWD`,  always holds the current working directory of the current shell. For example, 
+
+```console
+hacker@dojo:~$ echo $PWD
+/home/hacker
+```
+
+Naturally, as well as reading values stored in variables, you can write values to variables. This is done, as with many other languages, using `=`. To set variable `VAR` to value `1337`, you would use:
+
+```console
+hacker@dojo:~$ VAR=1337
+```
+
+Note that there are no spaces around the `=`! If you put spaces (e.g., `VAR = 1337`), the shell won't recognize a variable assignment and will, instead, try to run the `VAR` command (which does not exist).
+
+Also note that this uses `VAR` and _not_ `$VAR`: the `$` is only prepended to _access_ variables. In shell terms, this prepending of `$` triggers what is called _variable expansion_, and is, surprisingly, the source of many potential vulnerabilities (if you're interested in that, check out the Art of the Shell dojo when you get comfortable with the command line!).
+
+After setting variables, you can access them using the techniques you've learned previously, such as:
+
+```console
+hacker@dojo:~$ echo $VAR
+1337
+```
+
+In this level, you will learn about quoting. Spaces have special significance in the shell, and there are places where you can't use them spuriously. Recall our variable setting:
+
+```console
+hacker@dojo:~$ VAR=1337
+```
+
+That sets the `VAR` variable to `1337`, but what if you wanted to set it to `1337 SAUCE`? You might try the following:
+
+```console
+hacker@dojo:~$ VAR=1337 SAUCE
+```
+
+This looks reasonable, but it does not work, for similar reasons to needing to have no spaces around the `=`. When the shell sees a space, it ends the variable assignment and interprets the next word (`SAUCE` in this case) as a command. To set `VAR` to `1337 SAUCE`, you need to _quote_ it:
+
+```console
+hacker@dojo:~$ VAR="1337 SAUCE"
+```
+
+By default, variables that you set in a shell session are local to that shell process. That is, other commands you run won't inherit them. You can experiment with this by simply invoking another shell process in your own shell, like so:
+
+```console
+hacker@dojo:~$ VAR=1337
+hacker@dojo:~$ echo "VAR is: $VAR"
+VAR is: 1337
+hacker@dojo:~$ sh
+$ echo "VAR is: $VAR"
+VAR is: 
+```
+
+In the output above, the `$` prompt is the prompt of `sh`, a minimal shell implementation that is invoked as a _child_ of the main shell process. And it does not receive the `VAR` variable!
+
+This makes sense, of course. Your shell variables might have sensitive or weird data, and you don't want it leaking to other programs you run unless it explicitly should. How do you mark that it should? You _export_ your variables. When you export your variables, they are passed into the _environment variables_ of child processes. You'll encounter the concept of environment variables in other challenges, but you'll observe their effects here. Here is an example:
+
+```console
+hacker@dojo:~$ VAR=1337
+hacker@dojo:~$ export VAR
+hacker@dojo:~$ sh
+$ echo "VAR is: $VAR"
+VAR is: 1337
+```
+
+Here, the child shell received the value of VAR and was able to print it out! You can also combine those first two lines.
+
+```console
+hacker@dojo:~$ export VAR=1337
+hacker@dojo:~$ sh
+$ echo "VAR is: $VAR"
+VAR is: 1337
+```
+
+There are multiple ways to access variables in bash. `echo` was just one of them, and we'll now learn at least one more in this challenge.
+
+Try the `env` command: it'll print out every _exported_ variable set in your shell, and you can look through that output to find the `FLAG` variable!
+
+In the course of working with the shell, you will often want to store the output of some command into a variable. Luckily, the shell makes this quite easy using something called [_Command Substitution_](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html)! Observe:
+
+```console
+hacker@dojo:~$ FLAG=$(cat /flag)
+hacker@dojo:~$ echo "$FLAG"
+pwn.college{blahblahblah}
+hacker@dojo:~$
+```
+
+**Trivia:** You can also use backticks instead of `$()`: `` FLAG=`cat /flag` `` instead of `FLAG=$(cat /flag)` in the example above. This is an older format and has some disadvantages. For example, imagine if you wanted to _nest_ command substitutions. How would you do `$(cat $(find / -name flag))` with backticks? The official stance of pwn.college is that you should use `$(blah)` instead of `` `blah` ``.
+
+We'll start with reading input from the user (you). That's done using the aptly named `read` builtin, which _reads_ input into a variable!
+
+Here is an example using the `-p` argument, which lets you specify a prompt (otherwise, it would be hard for you, reading this now, to separate input from output in the example below):
+
+```console
+hacker@dojo:~$ read -p "INPUT: " MY_VARIABLE
+INPUT: Hello!
+hacker@dojo:~$ echo "You entered: $MY_VARIABLE"
+You entered: Hello!
+```
+
+Keep in mind, `read` reads data from your standard input! The first `Hello!`, above, was _inputted_ rather than _outputted_. Let's try to be more explicit with that. Here, we annotated the beginning of each line with whether the line represents `INPUT` from the user or `OUTPUT` to the user:
+
+```console
+ INPUT: hacker@dojo:~$ echo $MY_VARIABLE
+OUTPUT:
+ INPUT: hacker@dojo:~$ read MY_VARIABLE
+ INPUT: Hello!
+ INPUT: hacker@dojo:~$ echo "You entered: $MY_VARIABLE"
+OUTPUT: You entered: Hello!
+```
+
+Often, when shell users want to read a file into an environment variable, they do something like:
+
+```console
+hacker@dojo:~$ echo "test" > some_file
+hacker@dojo:~$ VAR=$(cat some_file)
+hacker@dojo:~$ echo $VAR
+test
+```
+
+This works, but it represents what grouchy hackers call a ["Useless Use of Cat"](https://porkmail.org/era/unix/award#cat). That is, running a whole other program just to read the file is a waste. It turns out that you can just use the powers of the shell!
+
+Previously, you `read` user input into a variable. You've also previously redirected files into command input! Put them together, and you can read files with the shell.
+
+```console
+hacker@dojo:~$ echo "test" > some_file
+hacker@dojo:~$ read VAR < some_file
+hacker@dojo:~$ echo $VAR
+test
+```
+
+What happened there? The example redirects `some_file` into the _standard input_ of `read`, and so when `read` reads into `VAR`, it reads from the file! 
+
+
