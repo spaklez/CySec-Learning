@@ -19,6 +19,6 @@ Mostly Linux and networking/cysec fundamentals.
 
 # Goals:
 
-Finish the remaining Linux Luminarium modules
-Complete networking fundamentals from Professor Messer
-Move on to CompTIA Security+ and CompTIA Network+
+- Finish the remaining Linux Luminarium modules
+- Complete networking fundamentals from Professor Messer
+- Move on to CompTIA Security+ and CompTIA Network+
