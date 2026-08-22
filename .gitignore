@@ -221,3 +221,6 @@ __marimo__/
 .obsidian/
 .space/
 Crash Course in Linux.md
+.trash/
+*.log
+pwn-college/pwn-college.md
