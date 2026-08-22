@@ -90,8 +90,7 @@ I'm a third-semester B.Sc. Information Engineering student at TUM Campus Heilbro
 
 ## Certifications
 
-### Held
-- [x] ISC2 Certified in Cybersecurity
+- [ ] ISC2 Certified in Cybersecurity
 - [x] Cisco — Introduction to Cybersecurity
 - [ ] **CompTIA Security+ (SY0-701)**
 - [ ] **Microsoft SC-900**
