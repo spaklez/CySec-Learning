@@ -6,7 +6,7 @@ I'm a third-semester B.Sc. Information Engineering student at TUM Campus Heilbro
 
 ## Contents
 
-- [`pwn-college/`](./pwn-college) — Notes and write-ups from the pwn.college Linux Luminarium module along with other modules!
+- [`pwn-college/`](./pwn-college) — Notes and write-ups from the pwn.college Linux Luminarium module along with other modules, my profile -> [spaklez](https://pwn.college/hacker/spaklez) 
 
 ---
 
