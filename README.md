@@ -88,13 +88,18 @@ I'm a third-semester B.Sc. Information Engineering student at TUM Campus Heilbro
 	- [ ] DORA — financial sector scope
 	- [ ] BSI-Gesetz basics
 
-## Certifications
+## AI Security
+- [ ] OWASP Top 10 for LLM Applications
+- [ ] Prompt injection — mechanisms and mitigations
+- [ ] Agent tool-use risks — permission scoping, data exfiltration
+- [ ] EU AI Act — scope, risk tiers, obligations
 
-- [ ] ISC2 Certified in Cybersecurity
+
+## Certifications
 - [x] Cisco — Introduction to Cybersecurity
-- [ ] **CompTIA Security+ (SY0-701)**
-- [ ] **Microsoft SC-900**
-- [ ] **Microsoft SC-200** 
+- [ ] CompTIA Security+ (SY0-701)
+- [ ] Microsoft SC-900
+- [ ] Microsoft SC-200
 - [ ] Splunk Core Certified User
-- [ ] BTL1 (Security Blue Team Level 1) 
-- [ ] CySA+ *or* ISO 27001 Lead Auditor
+- [ ] BTL1 (Security Blue Team Level 1)
+- [ ] CySA+ or ISO 27001 Lead Auditor
