@@ -182,7 +182,7 @@ Typically, assembly files are stored in a .s file, usually if we code our Assemb
 
 Your programs "interact" with the CPU using assembly instructions such as the `mov` instruction you wrote earlier. Similarly, your programs interact with the operating system (via the CPU, of course) using the `syscall`, or _System Call_ instruction.
 
-Each system call is indicated by a _syscall number_, counting upwards from 0, and your program invokes a specific syscall by moving its syscall number into the `rax` register and invoking the `syscall` instruction.
+Each system call is indicated by a _syscall number_, counting upwards from 0, and your program invokes a specific syscall by moving its syscall number into the `rax` register and invoking the `syscall` instruction. 
 
 Every program exits with an exit code. Similarly to how a system call number (e.g., `60` for `exit`) is specified in the `rax` variable, parameters are also passed to the syscall through registers. System calls can take multiple parameters, though `exit` takes only one: the exit code. The first parameter to a system call is passed via another register: `rdi`. Remember you can view the exit code of the last command by doing `echo $?`.
 

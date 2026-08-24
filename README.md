@@ -13,7 +13,7 @@ I'm a third-semester B.Sc. Information Engineering student at TUM Campus Heilbro
 ## pwn.college
 
 ### Getting Started
-- [ ] Start Here / Introduction to the Dojo
+- [x] Start Here / Introduction to the Dojo ✅ 2026-08-22
 - [x] Linux Luminarium — *2026-08-22*
 - [ ] Computing 101
 - [ ] Playing with Programs
