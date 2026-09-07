@@ -77,6 +77,7 @@ I'm a third-semester B.Sc. Information Engineering student at TUM Campus Heilbro
 - [ ] Blue Team Labs Online
 
 ## German Differentiators
+- [ ] GDPR
 - [ ] ISO 27001 foundation
 - [ ] BSI IT-Grundschutz (bsi.bund.de)
 	- [ ] IT-Grundschutz-Kompendium — structure and Bausteine
